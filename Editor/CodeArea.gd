@@ -37,6 +37,13 @@ func set_syntax(syntax: SyntaxResource) -> void:
                 syntax_highlighter.add_keyword_color(value, current_theme.syntax_colors[key])
 
 
+func clear_syntax() -> void:
+    current_syntax = null
+    var default = SyntaxResource.new()
+    set_indent(default.indent_size)
+    clear_syntax_highlighter()
+
+
 func clear_syntax_highlighter():
     syntax_highlighter.clear_highlighting_cache()
     syntax_highlighter.clear_color_regions()

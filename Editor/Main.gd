@@ -7,6 +7,7 @@ const EXTENSIONS = {
     "Ruby": ["rb", "erb", "ruby"],
     "HTML": ["html", "htm"],
 }
+const LANG_PLACEHOLDER = "Text"
 
 var current_file : String
 var current_lang : String
@@ -20,6 +21,9 @@ func _ready() -> void:
         .id_pressed.connect(_on_file_menu_selected)
     $BottomBar/IndentSizeMenu.get_popup() \
         .id_pressed.connect(_on_indent_changed_from_menu)
+    $BottomBar/SyntaxMenu.get_popup() \
+        .id_pressed.connect(_on_syntax_changed_from_menu)
+    generate_syntax_menu_items()
     $CodeArea.grab_focus()
     set_code_theme("Gessetti")
     new_file()
@@ -36,6 +40,7 @@ func update_window_title() -> void:
 func new_file():
     current_file   = ''
     $CodeArea.text = ''
+    $CodeArea.clear_syntax()
     file_dirty = false
     update_window_title()
 
@@ -67,18 +72,39 @@ func set_code_theme(_theme: String) -> void:
     $CodeArea.set_code_theme(resource)
 
 
+func set_lang(lang: String) -> void:
+    current_lang = lang
+    $BottomBar/SyntaxMenu.text = lang
+    if lang == LANG_PLACEHOLDER:
+        $CodeArea.clear_syntax()
+    else:
+        set_syntax(lang)
+
+
 func guess_syntax() -> void:
     var ext = current_file.get_extension()
     for key in EXTENSIONS:
         if EXTENSIONS[key].has(ext):
-            set_syntax(key)
+            set_lang(key)
             return
+    set_lang(LANG_PLACEHOLDER)
 
 
 func set_syntax(lang: String) -> void:
-    current_lang = lang
     var resource = load("res://code_syntaxes/%s-syntax.tres" % lang)
     $CodeArea.set_syntax(resource)
+
+
+func generate_syntax_menu_items() -> void:
+    var popup = $BottomBar/SyntaxMenu.get_popup()
+    popup.set_item_count(EXTENSIONS.size() + 1)
+    var i = 0
+    for key in EXTENSIONS:
+        popup.set_item_text(i, key)
+        i += 1
+    popup.set_item_text(i, LANG_PLACEHOLDER)
+    set_lang(LANG_PLACEHOLDER)
+
 
 
 func _input(event):
@@ -115,6 +141,13 @@ func _on_code_area_indent_changed(indent: int) -> void:
     var regex = RegEx.new()
     regex.compile("\\d+")
     $BottomBar/IndentSizeMenu.text = regex.sub(text, str(indent))
+
+
+func _on_syntax_changed_from_menu(id_as_index: int) -> void:
+    var popup = $BottomBar/SyntaxMenu.get_popup()
+    var lang  = popup.get_item_text(id_as_index)
+    set_lang(lang)
+    if lang != LANG_PLACEHOLDER: set_syntax(lang)
 
 
 func _on_open_file_dialog_file_selected(path: String) -> void:

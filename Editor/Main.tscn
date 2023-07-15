@@ -79,6 +79,9 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 2
 
+[node name="SyntaxMenu" type="MenuButton" parent="BottomBar"]
+layout_mode = 2
+
 [node name="IndentSizeMenu" type="MenuButton" parent="BottomBar"]
 layout_mode = 2
 text = "Indent: 4"
