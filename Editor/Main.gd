@@ -3,6 +3,10 @@ extends Control
 enum FileMenuId { NEW, OPEN, SAVE, SAVE_AS, QUIT }
 
 const NEW_FILE_PLACEHOLDER = "Untitled"
+const EXTENSIONS = {
+    "Ruby": ["rb", "erb", "ruby"],
+    "HTML": ["html", "htm"],
+}
 
 var current_file : String
 var current_lang : String
@@ -55,6 +59,14 @@ func set_code_theme(_theme: String) -> void:
     $CodeArea.set_code_theme(resource)
 
 
+func guess_syntax() -> void:
+    var ext = current_file.get_extension()
+    for key in EXTENSIONS:
+        if EXTENSIONS[key].has(ext):
+            set_syntax(key)
+            return
+
+
 func set_syntax(lang: String) -> void:
     current_lang = lang
     var resource = load("res://code_syntaxes/%s-syntax.tres" % lang)
@@ -80,6 +92,7 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
     $CodeArea.text = f.get_as_text()
     f.close()
     current_file = path
+    guess_syntax()
     update_window_title()
 
 

@@ -15,6 +15,7 @@ func set_code_theme(_theme: ThemeResource) -> void:
     syntax_highlighter.set_symbol_color(_theme.symbol_color)
     syntax_highlighter.set_number_color(_theme.number_color)
     syntax_highlighter.set_function_color(_theme.function_color)
+    syntax_highlighter.set_member_variable_color(_theme.member_variable_color)
 
 
 func set_syntax(syntax: SyntaxResource) -> void:

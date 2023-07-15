@@ -10,7 +10,12 @@ regions = {
 "string": [["\"", "\""]]
 }
 keywords = {
-"keyword": ["html", "body", "head", "meta", "title", "div", "p", "span", "table", "thead", "tbody", "tr", "th", "td"]
+"keyword": [
+  "html", "body", "head", "meta", "title",
+  "script", "style",
+  "div", "p", "span",
+  "table", "thead", "tbody", "tr", "th", "td"
+]
 }
 completions = [["html:5", "<!DOCTYPE html>
 <html lang=\"en\">

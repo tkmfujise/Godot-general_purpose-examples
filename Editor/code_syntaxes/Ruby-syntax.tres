@@ -6,7 +6,7 @@
 script = ExtResource("1_00dgo")
 indent_size = 2
 regions = {
-"comment": [["#", "'"]],
+"comment": [["#", ""]],
 "constant": [[":", " "]],
 "string": [["'", "'"], ["\"", "\""]]
 }

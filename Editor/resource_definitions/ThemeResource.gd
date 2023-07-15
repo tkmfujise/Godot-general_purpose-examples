@@ -6,6 +6,7 @@ class_name ThemeResource
 @export var symbol_color     = "#008888"
 @export var number_color     = "#0000FF"
 @export var function_color   = "#FF0000"
+@export var member_variable_color = "#000000"
 
 @export var syntax_colors = {
     "boolean": "#FF8800",
