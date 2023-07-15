@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cns8upmvp0f0x"]
+[gd_scene load_steps=6 format=3 uid="uid://cns8upmvp0f0x"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_4tag4"]
 [ext_resource type="FontFile" uid="uid://gavtqobtcvgh" path="res://fonts/Menlo-Regular.ttf" id="2_i2ekb"]
 [ext_resource type="Script" path="res://CodeArea.gd" id="3_wuq7h"]
+[ext_resource type="Script" path="res://FileMenu.gd" id="4_p7uto"]
 
 [sub_resource type="Theme" id="Theme_siim0"]
 TextEdit/font_sizes/font_size = 17
@@ -64,6 +65,7 @@ popup/item_3/text = "Save As File"
 popup/item_3/id = 3
 popup/item_4/text = "Quit"
 popup/item_4/id = 4
+script = ExtResource("4_p7uto")
 
 [node name="OpenFileDialog" type="FileDialog" parent="."]
 title = "Open a File"

@@ -84,10 +84,10 @@ func _input(event):
         new_file()
     elif event.is_action_pressed("file_open"):
         $OpenFileDialog.popup()
-    elif event.is_action_pressed("file_save"):
-        save_file()
     elif event.is_action_pressed("file_save_as"):
         $SaveFileDialog.popup()
+    elif event.is_action_pressed("file_save"):
+        save_file()
 
 
 func _on_file_menu_selected(id: int) -> void:
