@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="SyntaxResource" load_steps=2 format=3 uid="uid://cjmxvjufax8em"]
+
+[ext_resource type="Script" path="res://resources/SyntaxResource.gd" id="1_00dgo"]
+
+[resource]
+script = ExtResource("1_00dgo")
+indent_size = 2
+keywords = {
+  "keyword": [
+    "class",
+    "def",
+    "end",
+    "module",
+    "require",
+    "return",
+    "initialize",
+    "attr_accessor",
+  ],
+  "boolean": [
+    "true",
+    "false",
+    "nil",
+  ],
+}
+regions = {
+  "comment": [
+    ["#", "'"],
+  ],
+  "string": [
+    ["'", "'"],
+    ["\"", "\""],
+  ],
+}
+completions = [
+  ["class", "class"],
+  ["def", "def"],
+  ["end", "end"],
+  ["return", "return"],
+  ["module", "module"],
+  ["require", "require"],
+  ["attr_accessor", "attr_accessor"],
+]
