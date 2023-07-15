@@ -12,6 +12,7 @@ var current_file : String
 var current_lang : String
 var current_syntax : String
 var current_theme : String
+var file_dirty : bool
 
 
 func _ready() -> void:
@@ -23,14 +24,17 @@ func _ready() -> void:
 
 
 func update_window_title() -> void:
-    get_window().title = \
+    var title = \
         ProjectSettings.get_setting("application/config/name") \
         + ' - ' + current_file_name()
+    if file_dirty: title += " *"
+    get_window().title = title
 
 
 func new_file():
     current_file   = ''
     $CodeArea.text = ''
+    file_dirty = false
     update_window_title()
 
 
@@ -48,9 +52,11 @@ func save_file():
         f.store_string($CodeArea.text)
         f.close()
         current_file = path
+        file_dirty = false
         update_window_title()
     else:
         $SaveFileDialog.popup()
+
 
 
 func set_code_theme(_theme: String) -> void:
@@ -73,6 +79,17 @@ func set_syntax(lang: String) -> void:
     $CodeArea.set_syntax(resource)
 
 
+func _input(event):
+    if event.is_action_pressed("file_new"):
+        new_file()
+    elif event.is_action_pressed("file_open"):
+        $OpenFileDialog.popup()
+    elif event.is_action_pressed("file_save"):
+        save_file()
+    elif event.is_action_pressed("file_save_as"):
+        $SaveFileDialog.popup()
+
+
 func _on_file_menu_selected(id: int) -> void:
     match id:
         FileMenuId.NEW:
@@ -93,6 +110,7 @@ func _on_open_file_dialog_file_selected(path: String) -> void:
     f.close()
     current_file = path
     guess_syntax()
+    file_dirty = false
     update_window_title()
 
 
@@ -100,3 +118,12 @@ func _on_save_file_dialog_file_selected(path: String) -> void:
     var f = FileAccess.open(path, FileAccess.WRITE)
     f.store_string($CodeArea.text)
     f.close()
+    current_file = path
+    file_dirty = false
+    update_window_title()
+
+
+func _on_code_area_text_changed() -> void:
+    if file_dirty: return
+    file_dirty = true
+    update_window_title()
