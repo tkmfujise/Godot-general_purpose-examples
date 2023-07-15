@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="SyntaxResource" load_steps=2 format=3 uid="uid://bo4fvpdkwrg71"]
+
+[ext_resource type="Script" path="res://resource_definitions/SyntaxResource.gd" id="1_kui6a"]
+
+[resource]
+script = ExtResource("1_kui6a")
+indent_size = 2
+regions = {
+"comment": [["<!--", "-->"]],
+"string": [["\"", "\""]]
+}
+keywords = {
+"keyword": ["html", "body", "head", "meta", "title", "div", "p", "span", "table", "thead", "tbody", "tr", "th", "td"]
+}
+completions = [["html:5", "<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"UTF-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>"], ["div", "<div> </div>"], ["span", "<span> </span>"], ["p", "<p> </p>"], ["table:thead,tbody", "<table>
+  <thead>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>"]]

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ThemeResource" load_steps=2 format=3 uid="uid://cj5ixtebhkrlf"]
+
+[ext_resource type="Script" path="res://resource_definitions/ThemeResource.gd" id="1_54nkl"]
+
+[resource]
+script = ExtResource("1_54nkl")
+background_color = "#FFFFFF"
+foreground_color = "#000000"
+symbol_color = "#008888"
+number_color = "#0000FF"
+function_color = "#FF0000"
+syntax_colors = {
+"boolean": "#FF8800",
+"comment": "#888888",
+"constant": "#FF4444",
+"keyword": "#FF00FF",
+"string": "#008800"
+}

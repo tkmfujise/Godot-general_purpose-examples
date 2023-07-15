@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ThemeResource" load_steps=2 format=3 uid="uid://cywkufkqkx6ha"]
+
+[ext_resource type="Script" path="res://resource_definitions/ThemeResource.gd" id="1_lcww5"]
+
+[resource]
+script = ExtResource("1_lcww5")
+background_color = "#062037"
+foreground_color = "#FFFFFF"
+symbol_color = "#FBFBD3"
+number_color = "#FFFFFF"
+function_color = "#F9B7DC"
+syntax_colors = {
+"boolean": "#98E1FF",
+"comment": "#5DA9EC",
+"constant": "#DCF710",
+"keyword": "#F4B043",
+"string": "#46F009"
+}
