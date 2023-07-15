@@ -24,6 +24,7 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 30.0
+offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_i2ekb")
@@ -42,16 +43,15 @@ indent_automatic = true
 auto_brace_completion_enabled = true
 script = ExtResource("3_wuq7h")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="TopBar" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 offset_left = 20.0
 offset_right = -20.0
-offset_bottom = 31.0
 grow_horizontal = 2
 
-[node name="FileMenu" type="MenuButton" parent="HBoxContainer"]
+[node name="FileMenu" type="MenuButton" parent="TopBar"]
 layout_mode = 2
 text = "File"
 item_count = 5
@@ -67,6 +67,28 @@ popup/item_4/text = "Quit"
 popup/item_4/id = 4
 script = ExtResource("4_p7uto")
 
+[node name="BottomBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="IndentSizeMenu" type="MenuButton" parent="BottomBar"]
+layout_mode = 2
+text = "Indent: 4"
+item_count = 2
+popup/item_0/text = "2"
+popup/item_0/id = 2
+popup/item_1/text = "4"
+popup/item_1/checked = true
+popup/item_1/id = 4
+
 [node name="OpenFileDialog" type="FileDialog" parent="."]
 title = "Open a File"
 initial_position = 2
@@ -81,6 +103,7 @@ size = Vector2i(600, 480)
 access = 2
 
 [connection signal="code_completion_requested" from="CodeArea" to="CodeArea" method="_on_code_completion_requested"]
+[connection signal="indent_changed" from="CodeArea" to="." method="_on_code_area_indent_changed"]
 [connection signal="text_changed" from="CodeArea" to="." method="_on_code_area_text_changed"]
 [connection signal="text_changed" from="CodeArea" to="CodeArea" method="_on_text_changed"]
 [connection signal="file_selected" from="OpenFileDialog" to="." method="_on_open_file_dialog_file_selected"]

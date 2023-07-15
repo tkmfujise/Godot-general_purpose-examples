@@ -16,8 +16,10 @@ var file_dirty : bool
 
 
 func _ready() -> void:
-    $HBoxContainer/FileMenu.get_popup() \
+    $TopBar/FileMenu.get_popup() \
         .id_pressed.connect(_on_file_menu_selected)
+    $BottomBar/IndentSizeMenu.get_popup() \
+        .id_pressed.connect(_on_indent_changed_from_menu)
     $CodeArea.grab_focus()
     set_code_theme("Gessetti")
     new_file()
@@ -104,6 +106,17 @@ func _on_file_menu_selected(id: int) -> void:
             get_tree().quit()
 
 
+func _on_indent_changed_from_menu(id_as_indent: int) -> void:
+    $CodeArea.set_indent(id_as_indent)
+
+
+func _on_code_area_indent_changed(indent: int) -> void:
+    var text = $BottomBar/IndentSizeMenu.text
+    var regex = RegEx.new()
+    regex.compile("\\d+")
+    $BottomBar/IndentSizeMenu.text = regex.sub(text, str(indent))
+
+
 func _on_open_file_dialog_file_selected(path: String) -> void:
     var f = FileAccess.open(path, FileAccess.READ)
     $CodeArea.text = f.get_as_text()
@@ -127,3 +140,5 @@ func _on_code_area_text_changed() -> void:
     if file_dirty: return
     file_dirty = true
     update_window_title()
+
+

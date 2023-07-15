@@ -1,5 +1,7 @@
 extends CodeEdit
 
+signal indent_changed
+
 var current_syntax : SyntaxResource
 var current_theme : ThemeResource
 
@@ -21,7 +23,7 @@ func set_code_theme(_theme: ThemeResource) -> void:
 func set_syntax(syntax: SyntaxResource) -> void:
     clear_syntax_highlighter()
     current_syntax = syntax
-    indent_size = syntax.indent_size
+    set_indent(syntax.indent_size)
     for key in syntax.regions:
         for arr in syntax.regions[key]:
             if current_theme.syntax_colors.has(key):
@@ -40,6 +42,11 @@ func clear_syntax_highlighter():
     syntax_highlighter.clear_color_regions()
     syntax_highlighter.clear_keyword_colors()
     syntax_highlighter.clear_member_keyword_colors()
+
+
+func set_indent(_indent_size: int) -> void:
+    indent_size = _indent_size
+    emit_signal("indent_changed", _indent_size)
 
 
 func _on_code_completion_requested() -> void:
