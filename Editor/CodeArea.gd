@@ -8,13 +8,13 @@ func _ready() -> void:
     syntax_highlighter = CodeHighlighter.new()
 
 
-func set_code_theme(theme: ThemeResource) -> void:
-    current_theme = theme
-    add_theme_color_override("background_color", theme.background_color)
-    add_theme_color_override("font_color", theme.foreground_color)
-    syntax_highlighter.set_symbol_color(theme.symbol_color)
-    syntax_highlighter.set_number_color(theme.number_color)
-    syntax_highlighter.set_function_color(theme.function_color)
+func set_code_theme(_theme: ThemeResource) -> void:
+    current_theme = _theme
+    add_theme_color_override("background_color", _theme.background_color)
+    add_theme_color_override("font_color", _theme.foreground_color)
+    syntax_highlighter.set_symbol_color(_theme.symbol_color)
+    syntax_highlighter.set_number_color(_theme.number_color)
+    syntax_highlighter.set_function_color(_theme.function_color)
 
 
 func set_syntax(syntax: SyntaxResource) -> void:
@@ -42,6 +42,7 @@ func clear_syntax_highlighter():
 
 
 func _on_code_completion_requested() -> void:
+    if !current_syntax: return
     for arr in current_syntax.completions:
         add_code_completion_option(CodeEdit.KIND_PLAIN_TEXT, arr[0], arr[1])
 
