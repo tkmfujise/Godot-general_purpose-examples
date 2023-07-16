@@ -37,12 +37,12 @@ Editor
 
 **Classes**
 
-<img src="doc/ClassDiagram.png" width="600" alt="Screenshot">
+<img src="doc/ClassDiagram.png" alt="ClassDiagram">
 
 
 ## Syntax Highlight
 
-**code_syntaxes/Ruby-syntax.tres (SyntaxResource) **
+**code_syntaxes/Ruby-syntax.tres (SyntaxResource)**
 ```
 [resource]
 indent_size = 2
@@ -67,7 +67,7 @@ completions = [
 ]
 ```
 
-**code_themes/Gessetti-theme.tres (ThemeResource) **
+**code_themes/Gessetti-theme.tres (ThemeResource)**
 ```
 [resource]
 syntax_colors = {
