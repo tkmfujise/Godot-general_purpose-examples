@@ -76,10 +76,10 @@ func set_code_theme(_theme: String) -> void:
 
 func generate_theme_menu_items():
     var popup = $TopBar/ViewMenu.get_popup()
-    var submenu: = PopupMenu.new()
+    var submenu = PopupMenu.new()
     submenu.set_name("ThemeMenu")
-    for name in THEMES:
-        submenu.add_radio_check_item(name)
+    for _name in THEMES:
+        submenu.add_radio_check_item(_name)
     popup.add_child(submenu)
     popup.add_submenu_item("Theme", "ThemeMenu", ViewMenuId.THEME)
     submenu.set_item_checked(0, true)
