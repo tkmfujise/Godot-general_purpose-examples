@@ -1,13 +1,16 @@
 extends Control
 
 enum FileMenuId { NEW, OPEN, SAVE, SAVE_AS, QUIT }
+enum ViewMenuId { THEME }
 
 const NEW_FILE_PLACEHOLDER = "Untitled"
 const EXTENSIONS = {
     "Ruby": ["rb", "erb", "ruby"],
     "HTML": ["html", "htm"],
+    "Markdown": ["md", "markdown"],
 }
 const LANG_PLACEHOLDER = "Text"
+const THEMES = ["Gessetti", "Pennarelli"]
 
 var current_file : String
 var current_lang : String
@@ -23,9 +26,9 @@ func _ready() -> void:
         .id_pressed.connect(_on_indent_changed_from_menu)
     $BottomBar/SyntaxMenu.get_popup() \
         .id_pressed.connect(_on_syntax_changed_from_menu)
+    generate_theme_menu_items()
     generate_syntax_menu_items()
     $CodeArea.grab_focus()
-    set_code_theme("Gessetti")
     new_file()
 
 
@@ -65,11 +68,23 @@ func save_file():
         $SaveFileDialog.popup()
 
 
-
 func set_code_theme(_theme: String) -> void:
     current_theme = _theme
     var resource  = load("res://code_themes/%s-theme.tres" % _theme)
     $CodeArea.set_code_theme(resource)
+
+
+func generate_theme_menu_items():
+    var popup = $TopBar/ViewMenu.get_popup()
+    var submenu: = PopupMenu.new()
+    submenu.set_name("ThemeMenu")
+    for name in THEMES:
+        submenu.add_radio_check_item(name)
+    popup.add_child(submenu)
+    popup.add_submenu_item("Theme", "ThemeMenu", ViewMenuId.THEME)
+    submenu.set_item_checked(0, true)
+    submenu.id_pressed.connect(_on_code_theme_changed)
+    set_code_theme(THEMES[0])
 
 
 func set_lang(lang: String) -> void:
@@ -106,7 +121,6 @@ func generate_syntax_menu_items() -> void:
     set_lang(LANG_PLACEHOLDER)
 
 
-
 func _input(event):
     if event.is_action_pressed("file_new"):
         new_file()
@@ -141,6 +155,16 @@ func _on_code_area_indent_changed(indent: int) -> void:
     var regex = RegEx.new()
     regex.compile("\\d+")
     $BottomBar/IndentSizeMenu.text = regex.sub(text, str(indent))
+
+
+func _on_code_theme_changed(index: int) -> void:
+    set_code_theme(THEMES[index])
+    var popup = $TopBar/ViewMenu.get_popup()
+    var submenu_name = popup.get_item_submenu(ViewMenuId.THEME)
+    var submenu = popup.get_node(submenu_name)
+    for i in submenu.item_count:
+        submenu.set_item_checked(i, false)
+    submenu.set_item_checked(index, true)
 
 
 func _on_syntax_changed_from_menu(id_as_index: int) -> void:
