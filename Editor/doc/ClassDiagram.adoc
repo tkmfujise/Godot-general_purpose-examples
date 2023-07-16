@@ -1,0 +1,180 @@
+# Class Diagram
+
+```
+class Template {
+  ~ signal
+  - const
+  ----
+  * var
+  ---
+  + method
+}
+```
+
+[plantuml]
+....
+class Main <<Control>> {
+  - FileMenuId
+  - ViewMenuId
+  - NEW_FILE_PLACEHOLDER
+  - EXTENSIONS
+  - LANG_PLACEHOLDER
+  - THEMES
+  ----
+  * current_file
+  * current_lang
+  * current_syntax
+  * current_theme
+  * file_dirty
+  ---
+  + _ready()
+  + update_window_title()
+  + new_file()
+  + current_file_name()
+  + save_file()
+  + set_code_theme( _theme )
+  + generate_theme_menu_items()
+  + set_lang( lang )
+  + guess_syntax()
+  + set_syntax( lang )
+  + generate_syntax_menu_items()
+  + _input( event )
+  + _on_file_menu_selected( id )
+  + _on_indent_changed_from_menu( id_as_indent )
+  + _on_code_area_indent_changed( indent )
+  + _on_code_theme_changed( index )
+  + _on_syntax_changed_from_menu( id_as_index )
+  + _on_open_file_dialog_file_selected( path )
+  + _on_save_file_dialog_file_selected( path )
+  + _on_code_area_text_changed()
+}
+class CodeArea <<CodeEdit>> {
+  ~ indent_changed
+  ~ code_completion_requested
+  ~ text_changed
+  ---
+  * current_syntax
+  * current_theme
+  * syntax_highlighter
+  ---
+  + _ready()
+  + set_code_theme( _theme )
+  + set_syntax( syntax )
+  + clear_syntax()
+  + clear_syntax_highlighter()
+  + set_indent( _indent_size )
+  + add_code_completion_option( types, display_text, indent_text )
+  + add_code_completion_option( bool )
+  + get_word_at_pos( position )
+  + get_caret_draw_pos( carete_index )
+  + request_code_completion( bool )
+  + _on_code_completion_requested()
+  + _on_text_changed()
+}
+class CodeHighlighter <<(C,white)CodeHighlighter>> {
+  + set_symbol_color( color )
+  + set_number_color( color )
+  + set_function_color( color )
+  + set_member_variable_color( color )
+  + add_color_region( start_key, end_key, color )
+  + add_keyword_color( keyword, color )
+  ---
+  + clear_highlighting_cache()
+  + clear_color_regions()
+  + clear_keyword_colors()
+  + clear_member_keyword_colors()
+}
+class SyntaxResource <<(R,pink)Resource>> {
+  * indent_size
+  * regions
+  * keywords
+  * completions
+}
+class ThemeResource <<(R,pink)Resource>> {
+  * background_color
+  * foreground_color
+  * symbol_color
+  * number_color
+  * function_color
+  * member_variable_color
+  * syntax_colors
+}
+class TopBar <<(C,white)MenuBar>> {
+  * switch_on_hover
+}
+class FileMenu <<MenuButton>> {
+  ~ id_pressed
+  ---
+  - SHORTCUT_KEY_MAPPING
+  ---
+  * switch_on_hover
+  * items
+  ---
+  + _ready()
+  + add_shortcut_key_lables_to_popup( popup )
+  + shortcut_key_of( event_name )
+}
+class ViewMenu <<(C,white)MenuButton>> {
+  * switch_on_hover
+  * items
+}
+class ThemeMenu <<(C,white)PopupMenu>> {
+  ~ id_pressed
+  ---
+  + add_radio_check_item( name )
+}
+class BottomBar <<(C,white)BoxContainer>> {
+  * alignment
+}
+class SyntaxMenu <<(C,white)MenuButton>> {
+  ~ id_pressed
+  ---
+  * text
+  * items
+}
+class IndentSizeMenu <<(C,white)MenuButton>> {
+  ~ id_pressed
+  ---
+  * text
+  * items
+}
+class OpenFileDialog <<(C,white)FileDialog>> {
+  ~ file_selected
+  ---
+  * file_mode
+  * access
+}
+class SaveFileDialog <<(C,white)FileDialog>> {
+  ~ file_selected
+  ---
+  * file_mode
+  * access
+}
+left to right direction
+
+Main --o CodeArea
+CodeArea::current_syntax <|.. SyntaxResource
+CodeArea::current_theme <|.. ThemeResource
+CodeArea::syntax_highlighter <|.. CodeHighlighter : new
+TopBar o-- Main
+TopBar --o FileMenu
+TopBar --o ViewMenu
+ThemeMenu o.. ViewMenu
+Main --o BottomBar
+BottomBar --o SyntaxMenu
+BottomBar --o IndentSizeMenu
+OpenFileDialog o-- Main
+SaveFileDialog o-- Main
+
+SaveFileDialog::file_selected -[#blue,thickness=2]-> Main::_on_save_file_dialog_file_selected
+OpenFileDialog::file_selected -[#blue,thickness=2]-> Main::_on_open_file_dialog_file_selected
+
+Main::_on_code_area_text_changed <-[#blue,thickness=2]- CodeArea::text_changed
+Main::_on_code_area_indent_changed <-[#blue,thickness=2]- CodeArea::indent_changed
+
+Main <-[#blue,thickness=2]- FileMenu::id_pressed
+Main::_on_indent_changed_from_menu <-[#blue,thickness=2]- IndentSizeMenu::id_pressed
+Main::_on_syntax_changed_from_menu <-[#blue,thickness=2]- SyntaxMenu::id_pressed
+
+ThemeMenu::id_pressed -[#blue,thickness=2]-> Main::_on_code_theme_changed
+....
