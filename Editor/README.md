@@ -10,6 +10,13 @@
 * Editor Theme
 * Keyboard Shortcut
 
+![gif](doc/GodotGeneralPurposeExample_Editor.gif)
+
+
+## 解説
+
+https://zenn.dev/tkmfujise/articles/5651b342278e59
+
 
 ## Structure
 
