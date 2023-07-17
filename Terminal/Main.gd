@@ -12,7 +12,7 @@ func _on_line_edit_text_submitted(line: String) -> void:
     var args    = Array(line.strip_edges().split(" "))
     var command = args.pop_front()
     if !command: return
-    execute(command, args)
+    execute(command, args.filter(func(s): return !s.is_empty()))
     clear_input()
 
 
@@ -30,7 +30,6 @@ func print_command(command: String, args: Array, result: String):
 
 
 func clear_terminal() -> void:
-    $LineEdit.text = ""
     $RichTextLabel.text = ""
 
 
