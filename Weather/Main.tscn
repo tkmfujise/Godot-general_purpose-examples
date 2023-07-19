@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c47cbv7htlee1"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_2ndlh"]
+[ext_resource type="Script" path="res://WeatherAPI.gd" id="2_mmp1n"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ndlh")
+
+[node name="WeatherAPI" type="HTTPRequest" parent="."]
+script = ExtResource("2_mmp1n")
+
+[connection signal="completed" from="WeatherAPI" to="." method="_on_weather_api_completed"]
+[connection signal="request_completed" from="WeatherAPI" to="WeatherAPI" method="_on_request_completed"]
