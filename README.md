@@ -3,7 +3,7 @@ Godot examples unless gaming
 
 ## [Clock](Clock)
 
-<img src="Clock/doc/Screenshot.png" width="600" alt="Screenshot">
+<img src="Clock/doc/Screenshot.png" width="300" alt="Screenshot">
 
 
 ## [Editor](Editor)
