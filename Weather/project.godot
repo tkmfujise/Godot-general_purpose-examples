@@ -17,6 +17,8 @@ config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=600
+window/size/viewport_height=300
 window/dpi/allow_hidpi=false
 
 [editor_plugins]
