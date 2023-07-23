@@ -1,0 +1,209 @@
+# Class Diagram
+
+```
+class Template {
+  ~ signal
+  - const
+  ----
+  * var
+  ---
+  + method
+}
+```
+
+[plantuml]
+....
+class Main <<Control>> {
+  - LatitudeInput
+  - LongitudeIntput
+  - TimezoneIntput
+  - HourlyTable
+  - CurrentWeatherIcon
+  - CurrentWeatherTemperature
+  - CurrentWeatherTime
+  ---
+  + _ready()
+  + refresh()
+  + render_current_weather( current )
+  + render_hourly_table( hourly )
+  + format_times( arr )
+  + with_unit( arr )
+  + show_error_message( message )
+  + _on_load_button_pressed()
+  + _on_weather_api_completed( response )
+  + _on_weather_api_failed( message )
+}
+class WeatherAPI <<HTTPRequest>> {
+  ~ completed
+  ~ failed
+  ---
+  - END_POINT
+  - URL_FORMAT
+  ---
+  + perform( latitude, longitude, timezone )
+  + _on_request_completed( result, response_code, headers, body )
+}
+class HBoxContainer <<(C,white)HBoxContainer>> {
+}
+class InputFields <<(C,white)VBoxContainer>> {
+}
+class LatitudeInput <<(C,white)LineEdit>> {
+  * text
+}
+class LongitudeInput <<(C,white)LineEdit>> {
+  * text
+}
+class TimezoneInput <<(C,white)LineEdit>> {
+  * text
+}
+class LoadButton <<Button>> {
+  ~ pressed
+}
+class CurrentWeather <<(C,white)VBoxContainer>> {
+}
+class Heading <<(C,white)PanelContainer>> {
+}
+class "Label" as HeadingLabel <<(C,white)Label>> {
+  * text
+}
+class "Icon" as CurrentIcon <<(C,white)PanelContainer>> {
+}
+class "Label" as CurrentIconLabel <<(C,white)Label>> {
+  * text
+}
+package WeatherIcon {
+  class "WeatherIcon" as CurrentWeatherIcon <<Sprite2D>>
+}
+class "Temperature" as CurrentTemperature <<(C,white)PanelContainer>> {
+}
+class "Label" as CurrentTemperatureLabel <<(C,white)Label>> {
+  * text
+}
+class "Time" as CurrentTime <<(C,white)PanelContainer>> {
+}
+class "Label" as CurrentTimeLabel <<(C,white)Label>> {
+  * text
+}
+package HourlyTable {
+  class "HourlyTable" as MainHourlyTable <<VBoxContainer>> {
+  }
+}
+
+
+left to right direction
+
+Main --o WeatherAPI
+Main --o HBoxContainer
+HBoxContainer --o InputFields
+InputFields --o LatitudeInput
+InputFields --o LongitudeInput
+InputFields --o TimezoneInput
+InputFields --o LoadButton
+HBoxContainer --o CurrentWeather
+CurrentWeather --o Heading
+Heading --o HeadingLabel
+CurrentWeather --o CurrentIcon
+CurrentIcon --o CurrentIconLabel
+CurrentIcon --o CurrentWeatherIcon
+CurrentWeather --o CurrentTemperature
+CurrentTemperature --o CurrentTemperatureLabel
+CurrentWeather --o CurrentTime
+CurrentTime --o CurrentTimeLabel
+HBoxContainer --o MainHourlyTable
+
+Main::_on_weather_api_completed <-[#blue,thickness=2]- WeatherAPI::completed
+Main::_on_weather_api_failed <-[#blue,thickness=2]- WeatherAPI::failed
+
+Main::_on_load_button_pressed <-[#blue,thickness=2]- LoadButton::pressed
+....
+
+.HourlyTable
+[plantuml]
+....
+class HourlyTable <<HBoxContainer>> {
+  + _ready()
+  + setup(times, codes, temperatures, precipitations )
+  + setup_rows( arr, target )
+  + clear_chidlren()
+  + show_loading()
+  + hide_loading()
+}
+class Header <<(C,White)VBoxContainer>> {
+}
+class "Time" as HeaderTime <<(C,white)PanelContainer>> {
+}
+class "Label" as HeaderTimeLabel <<(C,white)Label>> {
+  * text
+}
+class "Code" as HeaderCode <<(C,white)PanelContainer>> {
+}
+class "Label" as HeaderCodeLabel <<(C,white)Label>> {
+  * text
+}
+class "Temperature" as HeaderTemperature <<(C,white)PanelContainer>> {
+}
+class "Label" as HeaderTemperatureLabel <<(C,white)Label>> {
+  * text
+}
+class "Precipitation" as HeaderPrecipitation <<(C,white)PanelContainer>> {
+}
+class "Label" as HeaderPrecipitationLabel <<(C,white)Label>> {
+  * text
+}
+
+class ScrollContainer <<(C,White)ScrollContainer>> {
+}
+class Rows <<(C,White)GridContainer>> {
+}
+class "Time" as RowTime <<(C,white)PanelContainer>> {
+}
+class "Label" as RowTimeLabel <<(C,white)Label>> {
+  * text
+}
+class "Code" as RowCode <<(C,white)PanelContainer>> {
+}
+class "Label" as RowCodeLabel <<(C,white)Label>> {
+  * text
+}
+package WeatherIcon {
+  class "WeatherIcon" as RowWeatherIcon <<Sprite2D>>
+}
+class "Temperature" as RowTemperature <<(C,white)PanelContainer>> {
+}
+class "Label" as RowTemperatureLabel <<(C,white)Label>> {
+  * text
+}
+class "Precipitation" as RowPrecipitation <<(C,white)PanelContainer>> {
+}
+class "Label" as RowPrecipitationLabel <<(C,white)Label>> {
+  * text
+}
+class Spinner <<(C,White)AnimatedSprite2D>> {
+}
+
+left to right direction
+
+HourlyTable --o Header
+Header --o HeaderTime
+HeaderTime --o HeaderTimeLabel
+Header --o HeaderCode
+HeaderCode --o HeaderCodeLabel
+Header --o HeaderTemperature
+HeaderTemperature --o HeaderTemperatureLabel
+Header --o HeaderPrecipitation
+HeaderPrecipitation --o HeaderPrecipitationLabel
+
+HourlyTable --o ScrollContainer
+ScrollContainer --o Rows
+Rows --o RowTime
+RowTime --o RowTimeLabel
+Rows --o RowCode
+RowCode --o RowCodeLabel
+RowCode --o RowWeatherIcon
+Rows --o RowTemperature
+RowTemperature --o RowTemperatureLabel
+Rows --o RowPrecipitation
+RowPrecipitation --o RowPrecipitationLabel
+
+HourlyTable --o Spinner
+....

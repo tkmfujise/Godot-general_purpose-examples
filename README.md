@@ -14,3 +14,8 @@ Godot examples unless gaming
 ## [Terminal](Terminal)
 
 <img src="Terminal/doc/Screenshot.png" width="600" alt="Screenshot">
+
+
+## [Weather](Weather)
+
+<img src="Weather/doc/Screenshot.png" width="600" alt="Screenshot">

@@ -10,15 +10,17 @@ config_version=5
 
 [application]
 
-config/name="Clock"
+config/name="Weather"
 run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=500
-window/size/viewport_height=500
-window/size/always_on_top=true
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/size/viewport_width=600
+window/size/viewport_height=300
+window/dpi/allow_hidpi=false
+
+[editor_plugins]
+
+enabled=PackedStringArray()

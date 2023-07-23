@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://newvgcnevsg4"]
+
+[ext_resource type="Theme" uid="uid://66wrw3uabom8" path="res://Theme.tres" id="1_i3lu3"]
+[ext_resource type="Script" path="res://HourlyTable.gd" id="2_ibc7m"]
+[ext_resource type="PackedScene" uid="uid://twjpb5y6lu3w" path="res://WeatherIcon.tscn" id="3_nl3v5"]
+[ext_resource type="Texture2D" uid="uid://dwdadhrggpd64" path="res://assets/spinner.png" id="4_48hch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5umg8"]
+atlas = ExtResource("4_48hch")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqhvf"]
+atlas = ExtResource("4_48hch")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50o2c"]
+atlas = ExtResource("4_48hch")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d1l8x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5umg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqhvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50o2c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HourlyTable" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_i3lu3")
+script = ExtResource("2_ibc7m")
+
+[node name="Header" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Time" type="PanelContainer" parent="Header"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Header/Time"]
+layout_mode = 2
+text = "Time
+ "
+
+[node name="Code" type="PanelContainer" parent="Header"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Header/Code"]
+layout_mode = 2
+text = "Code
+ "
+
+[node name="Temparature" type="PanelContainer" parent="Header"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Header/Temparature"]
+layout_mode = 2
+text = "Temperature"
+
+[node name="Precipitation" type="PanelContainer" parent="Header"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Header/Precipitation"]
+layout_mode = 2
+text = "Precipitation"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_scroll_mode = 0
+
+[node name="Rows" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="Time" type="PanelContainer" parent="ScrollContainer/Rows"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/Rows/Time"]
+layout_mode = 2
+text = "2023-07-20
+00:00"
+horizontal_alignment = 1
+
+[node name="Code" type="PanelContainer" parent="ScrollContainer/Rows"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/Rows/Code"]
+layout_mode = 2
+text = "1
+ "
+
+[node name="WeatherIcon" parent="ScrollContainer/Rows/Code" instance=ExtResource("3_nl3v5")]
+
+[node name="Temperature" type="PanelContainer" parent="ScrollContainer/Rows"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/Rows/Temperature"]
+layout_mode = 2
+text = "23 °C"
+
+[node name="Precipitation" type="PanelContainer" parent="ScrollContainer/Rows"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/Rows/Precipitation"]
+layout_mode = 2
+text = "59 %"
+
+[node name="Spinner" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(171, 100)
+sprite_frames = SubResource("SpriteFrames_d1l8x")
+frame = 1
+frame_progress = 0.809474
