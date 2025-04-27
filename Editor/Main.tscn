@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cns8upmvp0f0x"]
 
-[ext_resource type="Script" path="res://Main.gd" id="1_4tag4"]
+[ext_resource type="Script" uid="uid://do8jtatxm5dw5" path="res://Main.gd" id="1_4tag4"]
 [ext_resource type="FontFile" uid="uid://gavtqobtcvgh" path="res://fonts/Menlo-Regular.ttf" id="2_i2ekb"]
-[ext_resource type="Script" path="res://CodeArea.gd" id="3_wuq7h"]
-[ext_resource type="Script" path="res://FileMenu.gd" id="4_p7uto"]
+[ext_resource type="Script" uid="uid://bp15c1ai84442" path="res://CodeArea.gd" id="3_wuq7h"]
+[ext_resource type="Script" uid="uid://bjmhhovshar5i" path="res://FileMenu.gd" id="4_p7uto"]
 
 [sub_resource type="Theme" id="Theme_siim0"]
 TextEdit/font_sizes/font_size = 17
@@ -107,7 +107,7 @@ popup/item_1/id = 4
 title = "Open a File"
 initial_position = 2
 size = Vector2i(600, 480)
-ok_button_text = "開く"
+ok_button_text = "Open"
 file_mode = 0
 access = 2
 

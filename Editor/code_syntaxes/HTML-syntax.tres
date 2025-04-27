@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SyntaxResource" load_steps=2 format=3 uid="uid://bo4fvpdkwrg71"]
 
-[ext_resource type="Script" path="res://resource_definitions/SyntaxResource.gd" id="1_kui6a"]
+[ext_resource type="Script" uid="uid://bi4q4gmmtp54y" path="res://resource_definitions/SyntaxResource.gd" id="1_kui6a"]
 
 [resource]
 script = ExtResource("1_kui6a")
@@ -10,12 +10,7 @@ regions = {
 "string": [["\"", "\""]]
 }
 keywords = {
-"keyword": [
-  "html", "body", "head", "meta", "title",
-  "script", "style",
-  "div", "p", "span",
-  "table", "thead", "tbody", "tr", "th", "td"
-]
+"keyword": ["html", "body", "head", "meta", "title", "script", "style", "div", "p", "span", "table", "thead", "tbody", "tr", "th", "td"]
 }
 completions = [["html:5", "<!DOCTYPE html>
 <html lang=\"en\">

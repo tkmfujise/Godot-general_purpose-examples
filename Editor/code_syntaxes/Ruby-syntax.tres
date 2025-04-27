@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SyntaxResource" load_steps=2 format=3 uid="uid://cjmxvjufax8em"]
 
-[ext_resource type="Script" path="res://resource_definitions/SyntaxResource.gd" id="1_00dgo"]
+[ext_resource type="Script" uid="uid://bi4q4gmmtp54y" path="res://resource_definitions/SyntaxResource.gd" id="1_00dgo"]
 
 [resource]
 script = ExtResource("1_00dgo")

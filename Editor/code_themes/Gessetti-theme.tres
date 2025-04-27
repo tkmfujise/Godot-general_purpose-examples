@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ThemeResource" load_steps=2 format=3 uid="uid://cywkufkqkx6ha"]
 
-[ext_resource type="Script" path="res://resource_definitions/ThemeResource.gd" id="1_lcww5"]
+[ext_resource type="Script" uid="uid://cbvgfsmowc325" path="res://resource_definitions/ThemeResource.gd" id="1_lcww5"]
 
 [resource]
 script = ExtResource("1_lcww5")
